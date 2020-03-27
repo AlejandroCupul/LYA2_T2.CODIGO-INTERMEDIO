@@ -72,5 +72,9 @@ public class ProyectoGenerador {
             System.out.println("ERROR -> La expresión algebraica es incorrecta");
             System.err.println(ex);
         }
-        
+    }
+    ========
+    //=========================EN ESTE APARTADO IRÁN LOS MÉTODOS=========================
+    //===================================================================================
+    
 }
