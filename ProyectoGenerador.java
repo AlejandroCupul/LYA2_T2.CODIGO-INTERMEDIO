@@ -73,8 +73,41 @@ public class ProyectoGenerador {
             System.err.println(ex);
         }
     }
-    ========
-    //=========================EN ESTE APARTADO IRÁN LOS MÉTODOS=========================
-    //===================================================================================
+  
+    //Método que corrige la expresión algebraica introducida para eliminar los espacios en blanco de exceso y reducirlos a uno solo
+    private static String CorregirExpresion(String e) {
+        e = e.replaceAll("\\s+", ""); //Reemplaza por vacío donde haya 1 o más espacios en blanco
+        e = "("+e+")"; //Agregamos paréntesis externos para delimitar el inicio y fin de nuestra expresión algebraica 
+        String operadores = "+-*/()";
+        String ne = "";
+        for (int i = 0; i < e.length(); i++) { //Recorremos el tamaño de la expresion algebraica
+            if (operadores.contains(""+e.charAt(i))) { //Buscamos si hay coincidencias por cada letra de la expresión con la de la cadena operadores   
+                ne+= " "+e.charAt(i)+" "; //Si es verdadero, agregamos un espacio antes y después de cada operador dentro de la expresión
+            }else
+                ne += e.charAt(i); //Si es falso, sólo agregamos el operando a nuestra nueva cadena
+        }
+        ne = ne.replaceAll("\\s+", " ").trim(); //Reducimos a un sólo espacio en blanco donde hayan 2 o más, y además eliminamos los espacios al inicio y final de la expresión
+        return ne; //Retornamos nuestra expresión ya separada por espacios en blanco
+    }
     
+    //Devuelve el número de orden de acuerdo a la jerarquia de los operadores en postfija
+    private static int Jerarquia(String operador) {
+        int orden=0; //Declaramos nuestra variable orden inicializada en 0
+        if (operador.equals("(")) orden = 1; //Si el operador es "(", la variable "orden" toma el valor de 1
+        if (operador.equals(")")) orden = 2; //Si el operador es ")", la variable "orden" toma el valor de 2
+        if (operador.equals("+") || operador.equals("-")) orden = 3; //Si el operador es "+" ó "-", la variable "orden" toma el valor de 3
+        if (operador.equals("*") || operador.equals("/")) orden = 4; //Si el operador es "*" ó "/", la variable "orden" toma el valor de 4
+    return orden; //Retornamos el valor de la variable "orden"
+    }
+    
+    //Método que se encarga de concatenar los valores de la expresión de acuerdo a los operadores
+    private static String Concatenar(String op, String v2, String v1) {
+        if (op.equals("+")) return (v1+"+"+v2); //Si el operador es suma, retorna la concatenación de la variable 1 y la variable 2 con el símbolo "+" al medio de los dos
+        if (op.equals("-")) return (v1+"-"+v2); //Si el operador es resta, retorna la concatenación de la variable 1 y la variable 2 con el símbolo "-" al medio de los dos
+        if (op.equals("*")) return (v1+"*"+v2); //Si el operador es multiplicación, retorna la concatenación de la variable 1 y la variable 2 con el símbolo "*" al medio de los dos
+        if (op.equals("/")) return (v1+"/"+v2); //Si el operador es división, retorna la concatenación de la variable 1 y la variable 2 con el símbolo "/" al medio de los dos
+    return "";
+    }
+    
+}
 }
